@@ -1,14 +1,12 @@
 import { motion } from "framer-motion";
-
+import logo from "../assets/logo.PNG";
 const services = [
-  "Engineering Solutions",
-  "Project Management & Controls",
-  "Asset Integrity Management",
-  "Risk Management",
-  "Quality Assurance & Quality Control",
-  "Industrial Systems Modelling",
-  "Pipe Stress Analysis",
-  "Government Contract Engineering",
+  "Engineering Environment",
+  "Project Management",
+  "Engineering Support",
+  "Oil & Gas",
+  "Program Management & Consulting",
+  "Licensing & Regulatory Support",
 ];
 
 export default function Footer() {
@@ -29,17 +27,15 @@ export default function Footer() {
               transition={{ duration: 0.6 }}
             >
               <a
-                href="#home"
-                className="inline-block"
-              >
-                <h2 className="font-serif text-[28px] tracking-[-0.02em] text-white">
-                  ARCHRIDGE
-                </h2>
-
-                <p className="mt-[-2px] text-[9px] font-semibold tracking-[0.2em] text-[#9fc5b7]">
-                  DYNAMICS
-                </p>
-              </a>
+  href="/"
+  className="inline-block"
+>
+  <img
+    src={logo}
+    alt="Archridge Dynamics"
+    className="h-12 w-auto object-contain"
+  />
+</a>
 
               <p className="mt-6 max-w-[300px] text-[13px] leading-6 text-[#b8cdc5]">
                 Engineering solutions for safer, more efficient and more
@@ -61,39 +57,55 @@ export default function Footer() {
               <div className="flex flex-col gap-3">
 
                 <a
-                  href="#home"
+                  href="/"
                   className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
                 >
                   Home
                 </a>
 
                 <a
-                  href="#about"
+                  href="/#about"
                   className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
                 >
                   About Us
                 </a>
 
                 <a
-                  href="#services"
+                  href="/#services"
                   className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
                 >
                   Services
                 </a>
 
                 <a
-                  href="#industries"
+                  href="/markets"
                   className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
                 >
-                  Industries
+                  Markets
                 </a>
 
                 <a
-                  href="#contact"
+                  href="/careers"
                   className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
                 >
-                  Get in Touch
+                  Careers
                 </a>
+
+                <a
+  href="/#contact-project"
+  onClick={() => {
+    if (window.location.pathname === "/") {
+      setTimeout(() => {
+        document.getElementById("contact")?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  }}
+  className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
+>
+  Get in Touch
+</a>
 
               </div>
             </motion.div>
@@ -114,7 +126,7 @@ export default function Footer() {
                 {services.map((service) => (
                   <a
                     key={service}
-                    href="#services"
+                    href="/#services"
                     className="w-fit text-[12px] leading-5 text-[#b8cdc5] transition-colors hover:text-white"
                   >
                     {service}

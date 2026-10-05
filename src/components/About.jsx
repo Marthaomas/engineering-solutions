@@ -1,90 +1,89 @@
 import { motion } from "framer-motion";
-import image4 from "../assets/image4.png";
+import image1 from "../assets/image4.png";
 
-export default function About() {
+const About = () => {
   return (
     <section
       id="about"
-      className="w-full bg-[#f5f5ef] px-5 py-16 sm:px-8 lg:px-12 xl:px-16"
+      className="w-full overflow-hidden bg-white py-20 lg:py-28"
     >
-      <div className="mx-auto max-w-[1400px]">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:px-10">
 
-          {/* =================================================
-              IMAGE
-          ================================================== */}
-          {/* IMAGE */}
-<motion.div
-  initial={{ opacity: 0, x: -25 }}
-  whileInView={{ opacity: 1, x: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.8 }}
-  className="relative order-2 lg:order-1"
->
-  {/* GREEN ACCENT */}
-  <div className="absolute -bottom-3 -left-3 h-full w-full bg-[#0d5c48]" />
+        {/* Image */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative order-2 lg:order-1"
+        >
+          <div className="absolute -left-4 -top-4 h-full w-full rounded-2xl border border-[#0d5c48]" />
 
-  {/* IMAGE */}
-  <div className="relative z-10 overflow-hidden">
-    <img
-      src={image4}
-      alt="Engineering team working at an industrial facility"
-      className="block h-[280px] w-full object-cover sm:h-[360px] lg:h-[390px]"
-    />
-  </div>
-</motion.div>
+          <div className="relative overflow-hidden rounded-2xl">
+            <img
+              src={image1}
+              alt="Engineering and industrial solutions"
+              className="h-[360px] w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-[430px] lg:h-[500px]"
+            />
 
-          {/* =================================================
-              TEXT
-          ================================================== */}
-          {/* TEXT */}
-<motion.div
-  initial={{ opacity: 0, x: 25 }}
-  whileInView={{ opacity: 1, x: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.8 }}
-  className="max-w-[560px] order-1 lg:order-2"
->
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d5c48]/25 to-transparent" />
+          </div>
+        </motion.div>
 
-            {/* EYEBROW */}
-            <p className="mb-3 text-[10px] font-semibold tracking-[0.2em] text-[#16745a]">
-              ABOUT US
-            </p>
+        {/* Content */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="order-1 lg:order-2"
+        >
+          {/* Eyebrow */}
+          <div className="mb-5 flex items-center gap-3">
 
-            {/* HEADING */}
-            <h2 className="font-serif text-[34px] leading-[1.05] tracking-[-0.025em] text-[#102f28] sm:text-[42px] lg:text-[46px]">
-              Comprehensive Engineering
-              <br />
-              & Consulting Solutions
-            </h2>
+            <span className="text-[14px] font-semibold uppercase tracking-[0.18em] text-[#0d5c48]">
+              About Us
+            </span>
+          </div>
 
-            {/* DESCRIPTION */}
-            <p className="mt-5 max-w-[520px] text-[14px] leading-6 text-[#53665f] sm:text-[15px]">
-              We provide multidisciplinary engineering and consulting
-              solutions across project delivery, asset integrity, risk
-              management, quality assurance and technical engineering.
-              Our approach combines technical expertise with practical
-              solutions to help organizations improve safety, reliability
-              and operational performance throughout the project and asset
-              lifecycle.
-            </p>
+          {/* Heading */}
+          <h2 className="max-w-[620px] text-3xl font-semibold leading-tight tracking-[-0.02em] text-[#18352d] sm:text-4xl lg:text-[46px]">
+            Engineering Solutions Built for{" "}
+            <span className="text-[#0d5c48]">Real-World Challenges</span>
+          </h2>
 
-            {/* LEARN MORE BUTTON */}
-            <a
-  href="/about"
-  className="group mt-7 inline-flex items-center gap-3 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-5 py-3 text-[12px] font-semibold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48]"
->
-  <span>Learn More</span>
+          {/* Paragraph */}
+          <p className="mt-6 max-w-[620px] text-[16px] font-medium leading-7 text-[#53665f] sm:text-[17px]">
+            We provide practical engineering and technical solutions designed
+            to help organizations operate with greater reliability, efficiency,
+            and confidence. From engineering support and project management to
+            risk and technical services, we bring together technical expertise
+            and a solution-focused approach to address complex operational
+            challenges.
+          </p>
 
-  <span className="transition-transform duration-300 group-hover:translate-x-1">
-    →
-  </span>
-</a>
+          <p className="mt-4 max-w-[620px] text-[16px] font-medium leading-7 text-[#53665f] sm:text-[17px]">
+            Whether supporting a new project or improving existing operations,
+            our focus is on delivering solutions that are precise, dependable,
+            and built around the needs of each client.
+          </p>
 
-          </motion.div>
+          {/* Highlights */}
+         
 
-        </div>
+          {/* Button */}
+          <a
+            href="/about"
+            className="group mt-8 inline-flex items-center gap-3 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-6 py-3.5 text-[14px] font-bold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48]"
+          >
+            <span>Learn More</span>
+
+           
+          </a>
+        </motion.div>
       </div>
     </section>
   );
-}
+};
+
+export default About;
