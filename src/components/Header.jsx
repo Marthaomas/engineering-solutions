@@ -42,31 +42,82 @@ export default function Header() {
     setServicesOpen(false);
     setMobileMenu(false);
 
-    // If already on the homepage
     if (location.pathname === "/") {
       const target = document.getElementById(hash);
-    
+
       if (target) {
         window.history.pushState(null, "", `/#${hash}`);
-    
+
         const headerOffset = 110;
-    
+
         const targetPosition =
           target.getBoundingClientRect().top +
           window.pageYOffset -
           headerOffset;
-    
+
         window.scrollTo({
           top: targetPosition,
           behavior: "smooth",
         });
       }
-    
+
       return;
     }
 
-    // If coming from another page, go to homepage first
     navigate(`/#${hash}`);
+  };
+
+  // CONTACT BUTTON
+  const handleContactClick = (e) => {
+    e.preventDefault();
+
+    setMobileMenu(false);
+    setServicesOpen(false);
+
+    // Already on homepage
+    if (location.pathname === "/") {
+      const target = document.getElementById("contact");
+
+      if (target) {
+        window.history.pushState(null, "", "/#contact");
+
+        const headerOffset = 110;
+
+        const targetPosition =
+          target.getBoundingClientRect().top +
+          window.pageYOffset -
+          headerOffset;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+      }
+
+      return;
+    }
+
+    // Coming from About, Markets, Careers, etc.
+    navigate("/#contact");
+
+    // Wait for homepage to render, then scroll to contact
+    setTimeout(() => {
+      const target = document.getElementById("contact");
+
+      if (target) {
+        const headerOffset = 110;
+
+        const targetPosition =
+          target.getBoundingClientRect().top +
+          window.pageYOffset -
+          headerOffset;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 100);
   };
 
   const isActive = (section) => {
@@ -233,6 +284,7 @@ export default function Header() {
           {/* CONTACT CTA */}
           <a
             href="/#contact"
+            onClick={handleContactClick}
             className="ml-1 inline-flex items-center gap-2 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-5 py-3 text-[14px] font-semibold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48]"
           >
             Contact Us
@@ -336,7 +388,7 @@ export default function Header() {
             {/* CONTACT */}
             <a
               href="/#contact"
-              onClick={handleMobileClick}
+              onClick={handleContactClick}
               className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-5 py-3.5 text-[14px] font-semibold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48]"
             >
               Contact Us
