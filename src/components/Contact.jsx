@@ -175,7 +175,7 @@ export default function Contact() {
             <h3 className="mt-5 font-serif text-[32px] leading-tight text-white sm:text-[38px]">
               {isCareer
                 ? "Bring your expertise to the team."
-                : "Let&apos;s build something that matters."}
+                : "Let's build something that matters."}
             </h3>
 
             <p className="mt-5 text-[14px] leading-7 text-[#d2e2dc] sm:text-[15px]">
