@@ -1,48 +1,53 @@
 import { motion } from "framer-motion";
 import image3 from "../assets/image3.png";
-
+import image5 from "../assets/image5.jpg";
+import image6 from "../assets/image6.jpg";
+import image7 from "../assets/image7.jpg";
+import image8 from "../assets/image8.jpg";
+import image9 from "../assets/image9.jpg";
+import image10 from "../assets/image10.jpg";
 const services = [
   {
-    
     id: "engineering-environment",
     title: "Engineering Environment",
     description:
       "Integrated engineering solutions that support efficient project execution, technical performance and dependable operations across complex engineering environments.",
+    image: image5,
   },
   {
-    
     id: "project-management",
     title: "Project Management",
     description:
       "Structured project planning, coordination, scheduling and performance monitoring that help keep engineering projects organized, efficient and aligned with defined objectives.",
+    image: image6,
   },
   {
-    
     id: "engineering-support",
     title: "Engineering Support",
     description:
       "Technical engineering support that helps organizations address project requirements, solve technical challenges and maintain reliable performance throughout the project lifecycle.",
+    image: image7,
   },
   {
-    
     id: "oil-gas",
     title: "Oil & Gas",
     description:
       "Engineering and technical services supporting oil and gas projects, facilities and operations with a focus on safety, reliability, efficiency and regulatory requirements.",
+    image: image8,
   },
   {
-    
     id: "program-management-consulting",
     title: "Program Management & Consulting",
     description:
       "Strategic consulting and program management support that helps organizations coordinate complex initiatives, improve decision-making and achieve measurable project objectives.",
+    image: image9,
   },
   {
-    
     id: "licensing-regulatory-support",
     title: "Licensing & Regulatory Support",
     description:
       "Guidance through technical, licensing and regulatory requirements, helping projects navigate compliance processes and move forward with greater clarity and confidence.",
+    image: image10,
   },
 ];
 
@@ -99,7 +104,7 @@ export default function ServiceDetails() {
 
 {/* IMAGE */}
 <img
-  src={image3}
+  src={service.image}
   alt={service.title}
   className="block h-[300px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:h-[330px]"
 />

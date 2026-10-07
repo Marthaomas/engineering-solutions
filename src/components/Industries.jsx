@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import image4 from "../assets/image4.png";
+import image12 from "../assets/image12.jpg";
 
 const markets = [
   {
@@ -120,7 +120,7 @@ export default function Industries() {
           >
 
             <img
-              src={image4}
+              src={image12}
               alt="Industrial engineering facility"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out hover:scale-105"
             />

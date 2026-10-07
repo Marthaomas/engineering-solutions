@@ -58,7 +58,7 @@ export default function Contact() {
           <p className="mt-6 max-w-[680px] text-[15px] leading-7 text-[#53665f] sm:text-[17px] sm:leading-8">
             {isCareer
               ? "Interested in joining Archridge Dynamics? Tell us about your experience, expertise and the kind of opportunities you are looking for."
-              : "Have an engineering requirement, project or technical challenge? Get in touch with our team and let&apos;s discuss how we can help."}
+              : "Have an engineering requirement, project or technical challenge? Get in touch with our team and let's discuss how we can help."}
           </p>
         </motion.div>
 
