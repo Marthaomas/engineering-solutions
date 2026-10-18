@@ -102,14 +102,14 @@ export default function ServiceDetails() {
 
 
 {/* DEFAULT TITLE */}
-<div className="absolute bottom-0 left-0 right-0 z-10 p-5 transition-opacity duration-300 group-hover:opacity-0">
+<div className="absolute bottom-0 left-0 right-0 z-10 p-5 transition-opacity duration-300 md:group-hover:opacity-0">
   <h3 className="max-w-[330px] text-[24px] font-semibold leading-tight tracking-[-0.02em] text-white sm:text-[27px]">
     {service.title}
   </h3>
 </div>
 
 {/* SLIDE-UP INFORMATION PANEL */}
-<div className="absolute inset-x-0 bottom-0 z-20 translate-y-full bg-[#0d5c48] p-5 transition-transform duration-500 ease-out group-hover:translate-y-0">
+<div className="relative z-20 bg-[#0d5c48] p-5 md:absolute md:inset-x-0 md:bottom-0 md:translate-y-full md:transition-transform md:duration-500 md:ease-out md:group-hover:translate-y-0">
   
   {/* TITLE */}
   <h3 className="text-[22px] font-semibold leading-tight tracking-[-0.02em] text-white sm:text-[24px]">
