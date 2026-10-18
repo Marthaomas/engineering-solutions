@@ -1,31 +1,30 @@
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.PNG";
 
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [engineeringOpen, setEngineeringOpen] = useState(false);
+  const [projectOpen, setProjectOpen] = useState(false);
   const [marketsOpen, setMarketsOpen] = useState(false);
+  const [pendingScroll, setPendingScroll] = useState(null);
 
+  const closeTimer = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const services = [
-    {
-      name: "Engineering Solutions",
-      href: "/#engineering-environment",
-    },
+  const engineeringItems = [
     {
       name: "Environmental Engineering Support",
-      href: "/#engineering-support",
+      id: "engineering-support",
     },
-    {
-      name: "Project Management",
-      href: "/#project-management",
-    },
+  ];
+
+  const projectItems = [
     {
       name: "Licensing, Compliance & Program Management",
-      href: "/#licensing-regulatory-support",
+      id: "licensing-regulatory-support",
     },
   ];
 
@@ -35,14 +34,8 @@ export default function Header() {
     { name: "Power Generation", id: "power-generation" },
     { name: "Life Sciences & Healthcare", id: "life-sciences-healthcare" },
     { name: "Data Centres", id: "data-centres" },
-    {
-      name: "Life Sciences & Biotechnology",
-      id: "life-sciences-biotechnology",
-    },
-    {
-      name: "Transportation & Mobility",
-      id: "transportation-mobility",
-    },
+    { name: "Life Sciences & Biotechnology", id: "life-sciences-biotechnology" },
+    { name: "Transportation & Mobility", id: "transportation-mobility" },
     {
       name: "Power Delivery & Grid Infrastructure",
       id: "power-delivery-grid-infrastructure",
@@ -51,358 +44,420 @@ export default function Header() {
     { name: "Department of Energy", id: "department-of-energy" },
   ];
 
-  // SCROLL TO A SERVICE SECTION ON THE HOMEPAGE
-  const handleServiceClick = (href) => {
-    const hash = href.split("#")[1];
-
-    setMobileMenu(false);
-    setMarketsOpen(false);
-
-    if (location.pathname === "/") {
-      const target = document.getElementById(hash);
-
-      if (target) {
-        
-
-        const targetPosition =
-          target.getBoundingClientRect().top +
-          window.scrollY -
-          110;
-
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth",
-        });
-      }
-
-      return;
+  const clearCloseTimer = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
     }
-
-    navigate(`/#${hash}`);
-
-    window.setTimeout(() => {
-      const target = document.getElementById(hash);
-
-      if (!target) return;
-
-      const targetPosition =
-        target.getBoundingClientRect().top +
-        window.scrollY -
-        110;
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth",
-      });
-    }, 500);
   };
 
-  // NAVIGATE TO A MARKET SECTION
-  const handleMarketClick = (id) => {
-    setMarketsOpen(false);
-    setMobileMenu(false);
+  useEffect(() => {
+    if (location.pathname !== "/" || !pendingScroll) return;
 
-    navigate(`/markets#${id}`);
-
-    window.setTimeout(() => {
+    const id = pendingScroll;
+    const timer = window.setTimeout(() => {
       const target = document.getElementById(id);
 
-      if (!target) return;
-
-      const targetPosition =
-        target.getBoundingClientRect().top +
-        window.scrollY -
-        110;
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth",
-      });
-    }, 500);
-  };
-
-  // CONTACT NAVIGATION
-  const handleContactClick = (e) => {
-    e.preventDefault();
-
-    setMobileMenu(false);
-    setMarketsOpen(false);
-
-    if (location.pathname === "/") {
-      const target = document.getElementById("contact");
-
       if (target) {
-        
+        const top =
+          target.getBoundingClientRect().top + window.scrollY - 110;
 
-        const targetPosition =
-          target.getBoundingClientRect().top +
-          window.scrollY -
-          110;
-
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth",
-        });
+        window.scrollTo({ top, behavior: "smooth" });
       }
 
-      return;
-    }
+      setPendingScroll(null);
+    }, 150);
 
-    navigate("/#contact");
-  };
+    return () => window.clearTimeout(timer);
+  }, [location.pathname, pendingScroll]);
 
-  const handleMobileClick = () => {
+  useEffect(() => {
+    if (location.pathname !== "/markets" || !location.hash) return;
+
+    const id = decodeURIComponent(location.hash.slice(1));
+    const timer = window.setTimeout(() => {
+      const target = document.getElementById(id);
+
+      if (target) {
+        const top =
+          target.getBoundingClientRect().top + window.scrollY - 110;
+
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }, 200);
+
+    return () => window.clearTimeout(timer);
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    return () => clearCloseTimer();
+  }, []);
+
+  const closeMenus = () => {
+    clearCloseTimer();
     setMobileMenu(false);
+    setEngineeringOpen(false);
+    setProjectOpen(false);
     setMarketsOpen(false);
   };
 
-  // ACTIVE NAVIGATION STATE
-  const isActive = (section) => {
-    if (section === "about") {
-      return location.pathname === "/about";
-    }
-
-    if (section === "markets") {
-      return location.pathname === "/markets";
-    }
-
-    if (section === "careers") {
-      return location.pathname === "/careers";
-    }
-
-    if (section.startsWith("#")) {
-      return (
-        location.pathname === "/" &&
-        location.hash === section
-      );
-    }
-
-    return false;
+  const openDropdown = (setter) => {
+    clearCloseTimer();
+    setter(true);
   };
 
-  const navLinkClass = (section) =>
-    `group relative whitespace-nowrap py-2 text-[12px] xl:text-[13px] font-medium transition-colors duration-200 ${
-      isActive(section)
+  const scheduleDropdownClose = (setter) => {
+    clearCloseTimer();
+
+    closeTimer.current = window.setTimeout(() => {
+      setter(false);
+      closeTimer.current = null;
+    }, 250);
+  };
+
+  const scrollToId = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const top =
+      target.getBoundingClientRect().top + window.scrollY - 110;
+
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const handleSectionClick = (id) => {
+    closeMenus();
+
+    if (location.pathname === "/") {
+      setPendingScroll(null);
+      scrollToId(id);
+    } else {
+      setPendingScroll(id);
+      navigate("/");
+    }
+  };
+
+  const handleServiceClick = (id) => {
+    handleSectionClick(id);
+  };
+
+  const handleMarketClick = (id) => {
+    closeMenus();
+
+    if (location.pathname === "/markets") {
+      navigate(`/markets#${id}`);
+    } else {
+      navigate(`/markets#${id}`);
+    }
+  };
+
+  const handleContactClick = (event) => {
+    event.preventDefault();
+    handleSectionClick("contact");
+  };
+
+  const linkClass = (active = false) =>
+    `group relative inline-flex items-center whitespace-nowrap py-3 text-[13px] font-medium transition-colors duration-200 ${
+      active
         ? "text-[#0d5c48]"
         : "text-[#304c44] hover:text-[#0d5c48]"
     }`;
 
-  const activeLine = (section) => (
+  const underlineClass = (active = false) =>
+    `absolute -bottom-[1px] left-0 h-[2px] rounded-full bg-[#0d5c48] transition-all duration-300 ${
+      active ? "w-full" : "w-0 group-hover:w-full"
+    }`;
+
+  const dropdownItemClass =
+    "block w-full rounded-xl px-4 py-3 text-left text-[13px] leading-5 font-medium text-[#304c44] transition-colors duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48] focus-visible:bg-[#e3eee9] focus-visible:text-[#0d5c48] focus-visible:outline-none";
+
+  const mobileLinkClass =
+    "flex min-h-[48px] w-full items-center justify-between rounded-xl px-4 py-3 text-left text-[14px] font-medium text-[#304c44] transition-colors duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48] focus-visible:bg-[#e3eee9] focus-visible:text-[#0d5c48] focus-visible:outline-none";
+
+  const Chevron = ({ open }) => (
     <span
-      className={`absolute bottom-0 left-0 h-[2px] bg-[#16745a] transition-all duration-300 ${
-        isActive(section) ? "w-full" : "w-0"
+      aria-hidden="true"
+      className={`inline-block h-[7px] w-[7px] shrink-0 rotate-45 border-b-[1.5px] border-r-[1.5px] border-current transition-transform duration-200 ${
+        open ? "translate-y-[2px] rotate-[225deg]" : "-translate-y-[2px]"
       }`}
     />
   );
 
-  const mobileLinkClass = (section) =>
-    `block rounded-xl px-4 py-3.5 text-[14px] font-medium transition-all duration-200 ${
-      isActive(section)
-        ? "bg-[#e3eee9] text-[#0d5c48]"
-        : "text-[#304c44] hover:bg-[#edf2ef] hover:text-[#0d5c48]"
-    }`;
+  const renderDesktopDropdown = ({
+    label,
+    open,
+    setOpen,
+    items,
+    onSelect,
+    destinationId,
+  }) => (
+    <div
+      className="relative"
+      onMouseEnter={() => openDropdown(setOpen)}
+      onMouseLeave={() => scheduleDropdownClose(setOpen)}
+      onFocus={() => openDropdown(setOpen)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          scheduleDropdownClose(setOpen);
+        }
+      }}
+    >
+      <div className="flex items-center">
+        <button
+          type="button"
+          onClick={() => handleSectionClick(destinationId)}
+          className={`${linkClass(open)} ${
+            open ? "text-[#0d5c48]" : ""
+          }`}
+        >
+          {label}
+
+        </button>
+
+        <button
+          type="button"
+          aria-label={`${open ? "Close" : "Open"} ${label} menu`}
+          aria-expanded={open}
+          onClick={() => {
+            if (open) {
+              clearCloseTimer();
+              setOpen(false);
+            } else {
+              openDropdown(setOpen);
+              setEngineeringOpen(label === "Engineering Solutions");
+              setProjectOpen(label === "Project Management");
+              setMarketsOpen(label === "Markets");
+            }
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              clearCloseTimer();
+              setOpen(false);
+            }
+          }}
+          className="ml-1 flex h-8 w-6 items-center justify-center rounded-md text-[#304c44] transition-colors hover:bg-[#e3eee9] hover:text-[#0d5c48]"
+        >
+          <Chevron open={open} />
+        </button>
+      </div>
+
+      {open && (
+        <div className="absolute left-0 top-full z-50 w-[min(320px,85vw)] rounded-2xl border border-[#dce5df] bg-[#f8f8f3] p-2 shadow-[0_18px_50px_rgba(16,47,40,0.14)]">
+          {items.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onSelect(item.id)}
+              className={dropdownItemClass}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
+  const renderMobileDropdown = ({
+    label,
+    open,
+    setOpen,
+    items,
+    onSelect,
+    destinationId,
+  }) => (
+    <div className="rounded-xl">
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={() => handleSectionClick(destinationId)}
+          className={`${mobileLinkClass} flex-1`}
+        >
+          {label}
+        </button>
+
+        <button
+          type="button"
+          aria-label={`${open ? "Collapse" : "Expand"} ${label} menu`}
+          aria-expanded={open}
+          onClick={() => {
+            clearCloseTimer();
+            setOpen((value) => !value);
+
+            if (!open) {
+              setEngineeringOpen(label === "Engineering Solutions");
+              setProjectOpen(label === "Project Management");
+              setMarketsOpen(label === "Markets");
+            }
+          }}
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-[#0d5c48] transition-colors hover:bg-[#e3eee9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d5c48]"
+        >
+          <Chevron open={open} />
+        </button>
+      </div>
+
+      {open && (
+        <div className="ml-3 mt-1 flex flex-col gap-1 border-l-2 border-[#d5e0da] py-1 pl-3">
+          {items.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onSelect(item.id)}
+              className="min-h-[46px] w-full rounded-lg px-3 py-3 text-left text-[13px] leading-5 text-[#304c44] transition-colors hover:bg-[#e3eee9] hover:text-[#0d5c48] focus-visible:bg-[#e3eee9] focus-visible:outline-none"
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#dfe5df] bg-[#f5f5ef]/95 backdrop-blur-md">
-      <div className="mx-auto flex min-h-[82px] max-w-[1600px] items-center justify-between gap-4 px-5 py-3 sm:px-8 lg:px-8 xl:px-10">
-        {/* LOGO */}
+      <div className="mx-auto flex min-h-[76px] max-w-[1600px] items-center justify-between gap-4 px-4 py-3 sm:px-6 xl:min-h-[82px] xl:px-8 2xl:px-10">
         <a
           href="/"
-          onClick={handleMobileClick}
+          onClick={closeMenus}
+          aria-label="Archridge Dynamics home"
           className="flex shrink-0 items-center"
         >
           <img
             src={logo}
             alt="Archridge Dynamics"
-            className="h-auto w-[125px] object-contain xl:w-[150px]"
+            className="h-auto w-[118px] object-contain sm:w-[135px] xl:w-[150px]"
           />
         </a>
 
-        {/* DESKTOP NAVIGATION */}
-        <nav className="hidden items-center justify-end gap-x-4 xl:gap-x-5 lg:flex">
-          {/* ABOUT */}
+        {/* Desktop navigation */}
+        <nav className="hidden items-center justify-end gap-x-3 xl:flex 2xl:gap-x-5">
           <a
             href="/about"
-            className={navLinkClass("about")}
+            className={linkClass(location.pathname === "/about")}
           >
             About
-            {activeLine("about")}
+            <span className={underlineClass(location.pathname === "/about")} />
           </a>
 
-          {/* INDIVIDUAL SERVICE LINKS */}
-          {services.map((service) => {
-            const hash = `#${service.href.split("#")[1]}`;
-
-            return (
-              <a
-                key={service.name}
-                href={service.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleServiceClick(service.href);
-                }}
-                className={navLinkClass(hash)}
-              >
-                {service.name}
-                {activeLine(hash)}
-              </a>
-            );
+          {renderDesktopDropdown({
+            label: "Engineering Solutions",
+            open: engineeringOpen,
+            setOpen: setEngineeringOpen,
+            items: engineeringItems,
+            onSelect: handleServiceClick,
+            destinationId: "engineering-environment",
           })}
 
-          {/* MARKETS DROPDOWN */}
-          <div className="relative shrink-0">
-            <button
-              type="button"
-              onClick={() => setMarketsOpen((prev) => !prev)}
-              className={navLinkClass("markets")}
-            >
-              <span className="flex items-center gap-1">
-                Markets
-                <span
-                  className={`h-[6px] w-[6px] rotate-45 border-b-[1.5px] border-r-[1.5px] border-current transition-transform duration-300 ${
-                    marketsOpen
-                      ? "-translate-y-[1px] rotate-[225deg]"
-                      : "translate-y-[-2px]"
-                  }`}
-                />
-              </span>
-              {activeLine("markets")}
-            </button>
+          {renderDesktopDropdown({
+            label: "Project Management",
+            open: projectOpen,
+            setOpen: setProjectOpen,
+            items: projectItems,
+            onSelect: handleServiceClick,
+            destinationId: "project-management",
+          })}
 
-            {marketsOpen && (
-              <div className="absolute right-0 top-[42px] z-50 w-[310px] rounded-2xl border border-[#dce5df] bg-[#f8f8f3] p-2 shadow-[0_18px_50px_rgba(16,47,40,0.12)]">
-                {markets.map((market) => (
-                  <button
-                    key={market.id}
-                    type="button"
-                    onClick={() => handleMarketClick(market.id)}
-                    className="block w-full rounded-xl px-4 py-3 text-left text-[13px] font-medium text-[#304c44] transition-colors duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48]"
-                  >
-                    {market.name}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          {renderDesktopDropdown({
+            label: "Markets",
+            open: marketsOpen,
+            setOpen: setMarketsOpen,
+            items: markets,
+            onSelect: handleMarketClick,
+            destinationId: "markets",
+          })}
 
-          {/* CAREERS */}
           <a
             href="/careers"
-            className={navLinkClass("careers")}
+            className={linkClass(location.pathname === "/careers")}
           >
             Careers
-            {activeLine("careers")}
+            <span
+              className={underlineClass(location.pathname === "/careers")}
+            />
           </a>
 
-          {/* CONTACT */}
           <a
             href="/#contact"
             onClick={handleContactClick}
-            className="shrink-0 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-3 py-2.5 text-[12px] font-semibold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48] xl:px-4 xl:text-[13px]"
+            className="ml-1 shrink-0 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-4 py-2.5 text-[13px] font-semibold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48]"
           >
             Contact Us
           </a>
         </nav>
 
-        {/* MOBILE MENU BUTTON */}
+        {/* Mobile and tablet menu button */}
         <button
           type="button"
           onClick={() => {
-            setMobileMenu((prev) => !prev);
+            clearCloseTimer();
+            setMobileMenu((value) => !value);
+            setEngineeringOpen(false);
+            setProjectOpen(false);
             setMarketsOpen(false);
           }}
-          aria-label="Toggle navigation menu"
+          aria-label={mobileMenu ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={mobileMenu}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#0d4035] transition-all duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48] active:scale-90 lg:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#0d4035] transition-colors hover:bg-[#e3eee9] hover:text-[#0d5c48] active:scale-95 xl:hidden"
         >
-          <span className="text-[24px] leading-none">
+          <span className="text-[25px] leading-none">
             {mobileMenu ? "×" : "☰"}
           </span>
         </button>
       </div>
 
-      {/* MOBILE NAVIGATION */}
+      {/* Mobile and tablet navigation */}
       {mobileMenu && (
-        <div className="max-h-[75vh] overflow-y-auto border-t border-[#e4e9e4] bg-[#f5f5ef] px-5 pb-6 pt-4 lg:hidden">
-          <nav className="flex flex-col gap-2">
-            {/* ABOUT */}
+        <div className="max-h-[calc(100dvh-76px)] overflow-y-auto overscroll-contain border-t border-[#e4e9e4] bg-[#f5f5ef] px-4 pb-6 pt-4 sm:px-6">
+          <nav className="mx-auto flex max-w-2xl flex-col gap-2">
             <a
               href="/about"
-              onClick={handleMobileClick}
-              className={mobileLinkClass("about")}
+              onClick={closeMenus}
+              className={mobileLinkClass}
             >
               About
             </a>
 
-            {/* INDIVIDUAL SERVICE LINKS */}
-            {services.map((service) => {
-              const hash = `#${service.href.split("#")[1]}`;
-
-              return (
-                <a
-                  key={service.name}
-                  href={service.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleServiceClick(service.href);
-                  }}
-                  className={mobileLinkClass(hash)}
-                >
-                  {service.name}
-                </a>
-              );
+            {renderMobileDropdown({
+              label: "Engineering Solutions",
+              open: engineeringOpen,
+              setOpen: setEngineeringOpen,
+              items: engineeringItems,
+              onSelect: handleServiceClick,
+              destinationId: "engineering-environment",
             })}
 
-            {/* MARKETS */}
-            <button
-              type="button"
-              onClick={() => setMarketsOpen((prev) => !prev)}
-              className={`${mobileLinkClass(
-                "markets"
-              )} flex w-full items-center justify-between text-left`}
-            >
-              <span>Markets</span>
-              <span
-                className={`h-[7px] w-[7px] rotate-45 border-b-[1.5px] border-r-[1.5px] border-current transition-transform duration-300 ${
-                  marketsOpen
-                    ? "-translate-y-[1px] rotate-[225deg]"
-                    : "translate-y-[-2px]"
-                }`}
-              />
-            </button>
+            {renderMobileDropdown({
+              label: "Project Management",
+              open: projectOpen,
+              setOpen: setProjectOpen,
+              items: projectItems,
+              onSelect: handleServiceClick,
+              destinationId: "project-management",
+            })}
 
-            {marketsOpen && (
-              <div className="ml-3 flex flex-col gap-1 border-l border-[#d5e0da] pl-3">
-                {markets.map((market) => (
-                  <button
-                    key={market.id}
-                    type="button"
-                    onClick={() => handleMarketClick(market.id)}
-                    className="w-full rounded-lg px-3 py-2.5 text-left text-[13px] text-[#304c44] transition-colors duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48]"
-                  >
-                    {market.name}
-                  </button>
-                ))}
-              </div>
-            )}
+            {renderMobileDropdown({
+              label: "Markets",
+              open: marketsOpen,
+              setOpen: setMarketsOpen,
+              items: markets,
+              onSelect: handleMarketClick,
+              destinationId: "markets",
+            })}
 
-            {/* CAREERS */}
             <a
               href="/careers"
-              onClick={handleMobileClick}
-              className={mobileLinkClass("careers")}
+              onClick={closeMenus}
+              className={mobileLinkClass}
             >
               Careers
             </a>
 
-            {/* CONTACT */}
             <a
               href="/#contact"
               onClick={handleContactClick}
-              className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-5 py-3.5 text-[14px] font-semibold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48]"
+              className="mt-2 flex min-h-[50px] items-center justify-center gap-2 rounded-xl border border-[#0d5c48] bg-[#0d5c48] px-5 py-3.5 text-[14px] font-semibold text-white transition-all duration-300 hover:bg-transparent hover:text-[#0d5c48]"
             >
-              Contact Us
-              <span className="text-[16px]">→</span>
+              Contact Us <span aria-hidden="true">→</span>
             </a>
           </nav>
         </div>

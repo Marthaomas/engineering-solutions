@@ -30,9 +30,9 @@ const services = [
   },
   {
     id: "licensing-regulatory-support",
-    title: "Licensing, Compliance & Program Management",
+    title: "Licensing, Compliance & Project Management",
     description:
-      "Helping organizations navigate licensing procedures, regulatory obligations and compliance requirements while coordinating complex programs, streamlining processes and supporting successful project delivery.",
+      "Helping organizations navigate licensing procedures, regulatory obligations and compliance requirements while coordinating complex project, streamlining processes and supporting successful project delivery.",
     image: image9,
   },
 ];
