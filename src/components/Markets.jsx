@@ -3,82 +3,162 @@ import { motion } from "framer-motion";
 const markets = [
   {
     number: "01",
-    id: "oil-and-gas",
-    title: "Oil & Gas",
+    id: "government-public-sector",
+    title: "Government & Public Sector",
     intro:
-      "Supporting complex energy projects with engineering, technical and project delivery expertise.",
+      "Supporting public-sector initiatives through structured engineering, technical consulting and project delivery.",
     description:
-      "The oil and gas industry operates within demanding technical, operational and regulatory environments. Projects often involve complex engineering requirements, multiple stakeholders, strict safety expectations and significant project coordination.",
+      "Government projects often involve multiple agencies, detailed procurement procedures, public accountability and strict technical requirements. Effective delivery depends on clear planning, coordinated teams and compliance with applicable standards. Archridge Dynamics can support project teams with engineering expertise and organized project execution.",
     support: [
-      "Engineering and technical support",
-      "Project management and coordination",
-      "Risk management and technical assessment",
-      "Regulatory and licensing support",
-      "Technical documentation and project requirements",
+      "Engineering and technical consulting",
+      "Project planning and coordination",
+      "Program management support",
+      "Technical documentation",
+      "Compliance and regulatory guidance",
     ],
   },
   {
     number: "02",
-    id: "power-and-utilities",
-    title: "Power & Utilities",
+    id: "nuclear-energy",
+    title: "Nuclear Energy",
     intro:
-      "Supporting the infrastructure and technical systems that keep essential services operating reliably.",
+      "Supporting the technical coordination and project requirements associated with complex nuclear energy environments.",
     description:
-      "Power and utility projects require careful planning, technical coordination and a strong focus on reliability. From project development through execution, organizations must manage technical requirements, operational considerations and regulatory expectations.",
+      "Nuclear energy projects operate within highly regulated environments where safety, quality assurance, technical documentation and disciplined project controls are essential. Project teams must coordinate complex engineering activities while meeting stringent requirements throughout the project lifecycle.",
     support: [
-      "Engineering project support",
-      "Technical coordination and planning",
-      "Project management and delivery support",
-      "Operational and technical assessments",
-      "Regulatory and compliance support",
+      "Engineering project coordination",
+      "Technical documentation support",
+      "Project planning and scheduling",
+      "Quality and compliance coordination",
+      "Risk and project performance monitoring",
     ],
   },
   {
     number: "03",
-    id: "manufacturing",
-    title: "Manufacturing",
+    id: "power-generation",
+    title: "Power Generation",
     intro:
-      "Helping manufacturing organizations improve project execution, technical reliability and operational performance.",
+      "Helping power generation projects progress through effective engineering support and coordinated project delivery.",
     description:
-      "Manufacturing environments depend on reliable systems, efficient processes and well-coordinated engineering activities. Projects may involve facility improvements, technical upgrades, equipment requirements or operational changes that need to be carefully managed.",
+      "Power generation facilities require dependable systems, careful project planning and coordination across engineering disciplines. Whether a project involves new facilities, upgrades or operational improvements, effective delivery requires attention to technical requirements, schedules, costs and applicable standards.",
     support: [
       "Engineering and technical support",
-      "Project planning and coordination",
-      "Operational improvement support",
-      "Technical assessments",
-      "Project documentation and compliance guidance",
+      "Project planning and scheduling",
+      "Facility upgrade coordination",
+      "Technical assessments and documentation",
+      "Project risk and performance monitoring",
     ],
   },
   {
     number: "04",
-    id: "infrastructure",
-    title: "Infrastructure",
+    id: "life-sciences-healthcare",
+    title: "Life Sciences & Healthcare",
     intro:
-      "Providing structured engineering and project support for developments with complex technical and delivery requirements.",
+      "Supporting healthcare and life-science facilities where quality, reliability and regulated operations matter.",
     description:
-      "Infrastructure projects often involve multiple disciplines, stakeholders, contractors and regulatory requirements. Successful delivery requires structured planning, effective coordination and consistent technical oversight throughout the project lifecycle.",
+      "Healthcare and life-science environments depend on reliable facilities, carefully managed infrastructure and processes that support demanding operational standards. Projects may require coordination across building systems, technical teams, equipment requirements and compliance-related activities.",
     support: [
-      "Engineering project support",
-      "Project planning and management",
-      "Technical coordination",
-      "Risk and project performance support",
-      "Regulatory and compliance guidance",
+      "Facility engineering coordination",
+      "Project management and scheduling",
+      "Technical documentation support",
+      "Infrastructure improvement planning",
+      "Quality and compliance coordination",
     ],
   },
   {
     number: "05",
-    id: "government",
-    title: "Government",
+    id: "data-centres",
+    title: "Data Centres",
     intro:
-      "Supporting government projects and programs with practical engineering, technical and project management expertise.",
+      "Supporting the delivery of data-centre infrastructure designed around reliability, resilience and operational continuity.",
     description:
-      "Government projects can involve complex procurement processes, regulatory requirements, multiple stakeholders and defined quality standards. Our approach focuses on providing structured technical and project support that helps teams manage these requirements effectively.",
+      "Data centres depend on coordinated infrastructure, reliable power systems, cooling, connectivity and carefully managed construction or expansion projects. Successful delivery requires close collaboration between engineering disciplines, contractors and project stakeholders to meet demanding technical and operational requirements.",
     support: [
-      "Engineering and technical consulting",
-      "Project and program management support",
+      "Engineering project coordination",
+      "Power and cooling infrastructure planning",
+      "Project scheduling and delivery support",
+      "Technical documentation and reporting",
+      "Risk and compliance coordination",
+    ],
+  },
+  {
+    number: "06",
+    id: "life-sciences-biotechnology",
+    title: "Life Sciences & Biotechnology",
+    intro:
+      "Supporting biotechnology and research environments through coordinated technical projects and facility development.",
+    description:
+      "Biotechnology and research facilities can involve specialized equipment, controlled environments, complex building systems and rigorous quality requirements. Projects benefit from structured coordination, clear technical documentation and careful management of the requirements that influence facility performance and readiness.",
+    support: [
+      "Research facility project coordination",
+      "Engineering and technical support",
+      "Equipment and infrastructure planning",
+      "Project documentation and reporting",
+      "Quality and compliance coordination",
+    ],
+  },
+  {
+    number: "07",
+    id: "transportation-mobility",
+    title: "Transportation & Mobility",
+    intro:
+      "Helping transportation infrastructure projects stay coordinated, organized and aligned with delivery objectives.",
+    description:
+      "Transportation projects can span multiple engineering disciplines, contractors, public agencies and operational requirements. Roads, rail systems, transport facilities and mobility infrastructure all require thoughtful planning, stakeholder coordination and consistent oversight to support efficient project delivery.",
+    support: [
+      "Engineering project support",
+      "Project planning and scheduling",
+      "Stakeholder and contractor coordination",
       "Technical documentation",
-      "Regulatory and compliance guidance",
-      "Project coordination and performance monitoring",
+      "Risk and compliance monitoring",
+    ],
+  },
+  {
+    number: "08",
+    id: "power-delivery-grid-infrastructure",
+    title: "Power Delivery & Grid Infrastructure",
+    intro:
+      "Supporting infrastructure projects that move electricity reliably from generation facilities to end users.",
+    description:
+      "Power delivery infrastructure includes transmission networks, substations, distribution systems and grid improvements. These projects require careful technical coordination, infrastructure planning and management of schedules, interfaces and regulatory requirements to support reliable electricity delivery.",
+    support: [
+      "Electrical infrastructure project coordination",
+      "Transmission and distribution project support",
+      "Substation and grid upgrade coordination",
+      "Project planning and performance monitoring",
+      "Technical documentation and compliance support",
+    ],
+  },
+  {
+    number: "09",
+    id: "oil-gas",
+    title: "Oil & Gas",
+    intro:
+      "Supporting complex oil and gas projects with engineering coordination, technical expertise and structured delivery.",
+    description:
+      "Oil and gas projects operate within demanding technical, operational and regulatory environments. Facilities, equipment and project activities must be coordinated with close attention to safety requirements, technical specifications, operational reliability and applicable regulations.",
+    support: [
+      "Engineering and technical support",
+      "Project management and coordination",
+      "Technical assessments and documentation",
+      "Risk and project performance monitoring",
+      "Licensing and regulatory support",
+    ],
+  },
+  {
+    number: "10",
+    id: "department-of-energy",
+    title: "Department of Energy",
+    intro:
+      "Supporting energy-related public programs and projects through organized technical coordination and project management.",
+    description:
+      "Department of Energy initiatives may involve research, energy infrastructure, facility development and complex public-sector programs. These environments can require coordination among technical teams, contractors and government stakeholders, supported by clear documentation, project controls and applicable compliance processes.",
+    support: [
+      "Energy program coordination",
+      "Engineering and technical consulting",
+      "Project planning and scheduling",
+      "Documentation and reporting support",
+      "Regulatory and compliance coordination",
     ],
   },
 ];

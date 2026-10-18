@@ -9,45 +9,31 @@ import image10 from "../assets/image10.jpg";
 const services = [
   {
     id: "engineering-environment",
-    title: "Engineering Environment",
+    title: "Engineering Solutions",
     description:
-      "Integrated engineering solutions that support efficient project execution, technical performance and dependable operations across complex engineering environments.",
-    image: image5,
+      "Delivering practical engineering solutions tailored to project requirements, with a focus on technical excellence, operational efficiency and dependable results from planning through execution.",
+    image: image3,
+  },
+  {
+    id: "engineering-support",
+    title: "Environmental Engineering Support",
+    description:
+      "Supporting environmentally responsible project delivery through technical guidance, environmental considerations and practical solutions that help projects meet their operational and environmental objectives.",
+    image: image8,
   },
   {
     id: "project-management",
     title: "Project Management",
     description:
-      "Structured project planning, coordination, scheduling and performance monitoring that help keep engineering projects organized, efficient and aligned with defined objectives.",
+      "Coordinating project planning, resources, schedules and execution to keep activities on track, manage project risks and deliver outcomes that align with established goals, timelines and budgets.",
     image: image6,
   },
   {
-    id: "engineering-support",
-    title: "Engineering Support",
-    description:
-      "Technical engineering support that helps organizations address project requirements, solve technical challenges and maintain reliable performance throughout the project lifecycle.",
-    image: image7,
-  },
-  {
-    id: "oil-gas",
-    title: "Oil & Gas",
-    description:
-      "Engineering and technical services supporting oil and gas projects, facilities and operations with a focus on safety, reliability, efficiency and regulatory requirements.",
-    image: image8,
-  },
-  {
-    id: "program-management-consulting",
-    title: "Program Management & Consulting",
-    description:
-      "Strategic consulting and program management support that helps organizations coordinate complex initiatives, improve decision-making and achieve measurable project objectives.",
-    image: image9,
-  },
-  {
     id: "licensing-regulatory-support",
-    title: "Licensing & Regulatory Support",
+    title: "Licensing, Compliance & Program Management",
     description:
-      "Guidance through technical, licensing and regulatory requirements, helping projects navigate compliance processes and move forward with greater clarity and confidence.",
-    image: image10,
+      "Helping organizations navigate licensing procedures, regulatory obligations and compliance requirements while coordinating complex programs, streamlining processes and supporting successful project delivery.",
+    image: image9,
   },
 ];
 

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.PNG";
@@ -5,41 +6,58 @@ import logo from "../assets/logo.PNG";
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [marketsOpen, setMarketsOpen] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const services = [
     {
-      name: "Engineering Environment",
+      name: "Engineering Solutions",
       href: "/#engineering-environment",
+    },
+    {
+      name: "Environmental Engineering Support",
+      href: "/#engineering-support",
     },
     {
       name: "Project Management",
       href: "/#project-management",
     },
     {
-      name: "Engineering Support",
-      href: "/#engineering-support",
-    },
-    {
-      name: "Oil & Gas",
-      href: "/#oil-gas",
-    },
-    {
-      name: "Program Management & Consulting",
-      href: "/#program-management-consulting",
-    },
-    {
-      name: "Licensing & Regulatory Support",
+      name: "Licensing, Compliance & Program Management",
       href: "/#licensing-regulatory-support",
     },
   ];
 
+  const markets = [
+    { name: "Government & Public Sector", id: "government-public-sector" },
+    { name: "Nuclear Energy", id: "nuclear-energy" },
+    { name: "Power Generation", id: "power-generation" },
+    { name: "Life Sciences & Healthcare", id: "life-sciences-healthcare" },
+    { name: "Data Centres", id: "data-centres" },
+    {
+      name: "Life Sciences & Biotechnology",
+      id: "life-sciences-biotechnology",
+    },
+    {
+      name: "Transportation & Mobility",
+      id: "transportation-mobility",
+    },
+    {
+      name: "Power Delivery & Grid Infrastructure",
+      id: "power-delivery-grid-infrastructure",
+    },
+    { name: "Oil & Gas", id: "oil-gas" },
+    { name: "Department of Energy", id: "department-of-energy" },
+  ];
+
+  // SERVICES NAVIGATION
   const handleServiceClick = (href) => {
     const hash = href.split("#")[1];
 
     setServicesOpen(false);
+    setMarketsOpen(false);
     setMobileMenu(false);
 
     if (location.pathname === "/") {
@@ -49,10 +67,9 @@ export default function Header() {
         window.history.pushState(null, "", `/#${hash}`);
 
         const headerOffset = 110;
-
         const targetPosition =
           target.getBoundingClientRect().top +
-          window.pageYOffset -
+          window.scrollY -
           headerOffset;
 
         window.scrollTo({
@@ -60,12 +77,39 @@ export default function Header() {
           behavior: "smooth",
         });
       }
-
-      return;
+    } else {
+      navigate(`/#${hash}`);
     }
-
-    navigate(`/#${hash}`);
   };
+
+  
+const handleMarketClick = (id) => {
+  setMarketsOpen(false);
+  setServicesOpen(false);
+  setMobileMenu(false);
+
+  // Navigate to the selected market section.
+  navigate(`/markets#${id}`);
+
+  // Scroll directly to the correct write-up after navigation.
+  window.setTimeout(() => {
+    const target = document.getElementById(id);
+
+    if (!target) return;
+
+    const headerOffset = 110;
+    const targetPosition =
+      target.getBoundingClientRect().top +
+      window.scrollY -
+      headerOffset;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    });
+  }, 500);
+};
+
 
   // CONTACT BUTTON
   const handleContactClick = (e) => {
@@ -73,8 +117,8 @@ export default function Header() {
 
     setMobileMenu(false);
     setServicesOpen(false);
+    setMarketsOpen(false);
 
-    // Already on homepage
     if (location.pathname === "/") {
       const target = document.getElementById("contact");
 
@@ -82,10 +126,9 @@ export default function Header() {
         window.history.pushState(null, "", "/#contact");
 
         const headerOffset = 110;
-
         const targetPosition =
           target.getBoundingClientRect().top +
-          window.pageYOffset -
+          window.scrollY -
           headerOffset;
 
         window.scrollTo({
@@ -97,29 +140,17 @@ export default function Header() {
       return;
     }
 
-    // Coming from About, Markets, Careers, etc.
     navigate("/#contact");
-
-    // Wait for homepage to render, then scroll to contact
-    setTimeout(() => {
-      const target = document.getElementById("contact");
-
-      if (target) {
-        const headerOffset = 110;
-
-        const targetPosition =
-          target.getBoundingClientRect().top +
-          window.pageYOffset -
-          headerOffset;
-
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth",
-        });
-      }
-    }, 100);
   };
 
+  // CLOSE ALL DROPDOWNS
+  const handleMobileClick = () => {
+    setMobileMenu(false);
+    setServicesOpen(false);
+    setMarketsOpen(false);
+  };
+
+  // ACTIVE NAVIGATION STATE
   const isActive = (section) => {
     if (section === "home") {
       return location.pathname === "/" && !location.hash;
@@ -134,10 +165,8 @@ export default function Header() {
         location.pathname === "/" &&
         [
           "#engineering-environment",
-          "#project-management",
           "#engineering-support",
-          "#oil-gas",
-          "#program-management-consulting",
+          "#project-management",
           "#licensing-regulatory-support",
         ].includes(location.hash)
       );
@@ -176,22 +205,13 @@ export default function Header() {
         : "text-[#304c44] hover:bg-[#edf2ef] hover:text-[#0d5c48]"
     }`;
 
-  const handleMobileClick = () => {
-    setMobileMenu(false);
-    setServicesOpen(false);
-  };
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#dfe5df] bg-[#f5f5ef]/95 backdrop-blur-md">
       <div className="mx-auto flex h-[82px] max-w-[1400px] items-center justify-between px-5 sm:px-8 lg:px-12">
-
         {/* LOGO */}
         <a
           href="/"
-          onClick={() => {
-            setMobileMenu(false);
-            setServicesOpen(false);
-          }}
+          onClick={handleMobileClick}
           className="flex items-center"
         >
           <img
@@ -203,12 +223,8 @@ export default function Header() {
 
         {/* DESKTOP NAVIGATION */}
         <nav className="hidden items-center gap-7 lg:flex xl:gap-8">
-
           {/* HOME */}
-          <a
-            href="/"
-            className={navLinkClass("home")}
-          >
+          <a href="/" className={navLinkClass("home")}>
             Home
             {activeLine("home")}
           </a>
@@ -222,18 +238,18 @@ export default function Header() {
             {activeLine("about")}
           </a>
 
-          {/* SERVICES */}
+          {/* SERVICES DROPDOWN */}
           <div className="relative">
             <button
               type="button"
               onClick={() => {
                 setServicesOpen((prev) => !prev);
+                setMarketsOpen(false);
               }}
               className={navLinkClass("services")}
             >
               <span className="flex items-center gap-1.5">
                 Services
-
                 <span
                   className={`ml-1 h-[6px] w-[6px] rotate-45 border-b-[1.5px] border-r-[1.5px] border-current transition-transform duration-300 ${
                     servicesOpen
@@ -242,13 +258,11 @@ export default function Header() {
                   }`}
                 />
               </span>
-
               {activeLine("services")}
             </button>
 
-            {/* DESKTOP SERVICES DROPDOWN */}
             {servicesOpen && (
-              <div className="absolute left-1/2 top-[42px] w-[285px] -translate-x-1/2 rounded-2xl border border-[#dce5df] bg-[#f8f8f3] p-2 shadow-[0_18px_50px_rgba(16,47,40,0.12)]">
+              <div className="absolute left-1/2 top-[42px] z-50 w-[285px] -translate-x-1/2 rounded-2xl border border-[#dce5df] bg-[#f8f8f3] p-2 shadow-[0_18px_50px_rgba(16,47,40,0.12)]">
                 {services.map((service) => (
                   <button
                     key={service.name}
@@ -263,14 +277,44 @@ export default function Header() {
             )}
           </div>
 
-          {/* MARKETS */}
-          <a
-            href="/markets"
-            className={navLinkClass("markets")}
-          >
-            Markets
-            {activeLine("markets")}
-          </a>
+          {/* MARKETS DROPDOWN */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setMarketsOpen((prev) => !prev);
+                setServicesOpen(false);
+              }}
+              className={navLinkClass("markets")}
+            >
+              <span className="flex items-center gap-1.5">
+                Markets
+                <span
+                  className={`ml-1 h-[6px] w-[6px] rotate-45 border-b-[1.5px] border-r-[1.5px] border-current transition-transform duration-300 ${
+                    marketsOpen
+                      ? "-translate-y-[1px] rotate-[225deg]"
+                      : "translate-y-[-2px]"
+                  }`}
+                />
+              </span>
+              {activeLine("markets")}
+            </button>
+
+            {marketsOpen && (
+              <div className="absolute left-1/2 top-[42px] z-50 w-[310px] -translate-x-1/2 rounded-2xl border border-[#dce5df] bg-[#f8f8f3] p-2 shadow-[0_18px_50px_rgba(16,47,40,0.12)]">
+                {markets.map((market) => (
+                  <button
+                    key={market.id}
+                    type="button"
+                    onClick={() => handleMarketClick(market.id)}
+                    className="block w-full rounded-xl px-4 py-3 text-left text-[13px] font-medium text-[#304c44] transition-colors duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48]"
+                  >
+                    {market.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* CAREERS */}
           <a
@@ -281,7 +325,7 @@ export default function Header() {
             {activeLine("careers")}
           </a>
 
-          {/* CONTACT CTA */}
+          {/* CONTACT */}
           <a
             href="/#contact"
             onClick={handleContactClick}
@@ -297,6 +341,7 @@ export default function Header() {
           onClick={() => {
             setMobileMenu((prev) => !prev);
             setServicesOpen(false);
+            setMarketsOpen(false);
           }}
           aria-label="Toggle navigation menu"
           className="flex h-10 w-10 items-center justify-center rounded-full text-[#0d4035] transition-all duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48] active:scale-90 lg:hidden"
@@ -311,16 +356,6 @@ export default function Header() {
       {mobileMenu && (
         <div className="border-t border-[#e4e9e4] bg-[#f5f5ef] px-5 pb-6 pt-4 lg:hidden">
           <nav className="flex flex-col gap-2">
-
-            {/* HOME */}
-            <a
-              href="/"
-              onClick={handleMobileClick}
-              className={mobileLinkClass("home")}
-            >
-              Home
-            </a>
-
             {/* ABOUT */}
             <a
               href="/about"
@@ -335,13 +370,13 @@ export default function Header() {
               type="button"
               onClick={() => {
                 setServicesOpen((prev) => !prev);
+                setMarketsOpen(false);
               }}
               className={`${mobileLinkClass(
                 "services"
               )} flex w-full items-center justify-between text-left`}
             >
               <span>Services</span>
-
               <span
                 className={`h-[7px] w-[7px] rotate-45 border-b-[1.5px] border-r-[1.5px] border-current transition-transform duration-300 ${
                   servicesOpen
@@ -367,14 +402,41 @@ export default function Header() {
               </div>
             )}
 
-            {/* MARKETS */}
-            <a
-              href="/markets"
-              onClick={handleMobileClick}
-              className={mobileLinkClass("markets")}
+            {/* MOBILE MARKETS */}
+            <button
+              type="button"
+              onClick={() => {
+                setMarketsOpen((prev) => !prev);
+                setServicesOpen(false);
+              }}
+              className={`${mobileLinkClass(
+                "markets"
+              )} flex w-full items-center justify-between text-left`}
             >
-              Markets
-            </a>
+              <span>Markets</span>
+              <span
+                className={`h-[7px] w-[7px] rotate-45 border-b-[1.5px] border-r-[1.5px] border-current transition-transform duration-300 ${
+                  marketsOpen
+                    ? "-translate-y-[1px] rotate-[225deg]"
+                    : "translate-y-[-2px]"
+                }`}
+              />
+            </button>
+
+            {marketsOpen && (
+              <div className="ml-3 flex flex-col gap-1 border-l border-[#d5e0da] pl-3">
+                {markets.map((market) => (
+                  <button
+                    key={market.id}
+                    type="button"
+                    onClick={() => handleMarketClick(market.id)}
+                    className="w-full rounded-lg px-3 py-2.5 text-left text-[13px] text-[#304c44] transition-colors duration-200 hover:bg-[#e3eee9] hover:text-[#0d5c48]"
+                  >
+                    {market.name}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* CAREERS */}
             <a
