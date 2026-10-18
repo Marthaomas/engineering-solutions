@@ -23,7 +23,7 @@ export default function Header() {
 
   const projectItems = [
     {
-      name: "Licensing, Compliance & Program Management",
+      name: "Licensing, Compliance & Project Management",
       id: "licensing-regulatory-support",
     },
   ];
