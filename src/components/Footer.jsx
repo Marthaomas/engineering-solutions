@@ -1,215 +1,178 @@
+
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.PNG";
-const services = [
-  "Engineering Environment",
-  "Project Management",
-  "Engineering Support",
-  "Oil & Gas",
-  "Program Management & Consulting",
-  "Licensing & Regulatory Support",
+
+const navigation = [
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/#services" },
+  { name: "Project Services", href: "/project-services" },
+  { name: "Engineering Solutions", href: "/#engineering-environment" },
+  { name: "Markets", href: "/markets" },
+  { name: "Careers", href: "/careers" },
 ];
+
+const services = [
+  { name: "Consulting & Planning", href: "/#consulting-and-planning" },
+  { name: "Project Services", href: "/project-services" },
+  { name: "Engineering Services", href: "/#engineering-services" },
+  { name: "Energy Solutions", href: "/#energy-solutions" },
+  { name: "Environmental Services", href: "/#environmental-services" },
+  { name: "Oil & Gas", href: "/#oil-gas-services" },
+  { name: "IT Services", href: "/#it-services" },
+  { name: "Government Services", href: "/#government-services" },
+];
+
+const footerLinkClass =
+  "w-fit text-[13px] leading-6 text-[#b8cdc5] transition-colors duration-200 hover:text-[#79c9ad]";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#082f27] text-white">
+    <footer className="relative w-full overflow-hidden bg-[#062d24] text-white">
+      {/* Decorative circles */}
+      <div className="pointer-events-none absolute right-[-120px] top-[-120px] h-[360px] w-[360px] rounded-full border border-[#79c9ad]/10" />
+      <div className="pointer-events-none absolute bottom-[-180px] left-[-100px] h-[400px] w-[400px] rounded-full border border-[#79c9ad]/10" />
 
-      {/* MAIN FOOTER */}
-      <div className="px-5 py-16 sm:px-8 lg:px-12 xl:px-16">
+      {/* Main footer */}
+      <div className="relative px-5 py-16 sm:px-8 lg:px-12 lg:py-20 xl:px-16">
         <div className="mx-auto max-w-[1400px]">
-
-          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr_1fr_0.8fr]">
-
-            {/* BRAND */}
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.15fr_0.8fr_1.2fr_0.85fr] lg:gap-10">
+            {/* Brand */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <a
-  href="/"
-  className="inline-block"
->
-  <img
-    src={logo}
-    alt="Archridge Dynamics"
-    className="h-12 w-auto object-contain"
-  />
-</a>
+              <Link
+                to="/"
+                aria-label="Archridge Dynamics home"
+                className="inline-flex"
+              >
+                <img
+                  src={logo}
+                  alt="Archridge Dynamics"
+                  className="h-12 w-auto object-contain"
+                />
+              </Link>
 
-              <p className="mt-6 max-w-[300px] text-[13px] leading-6 text-[#b8cdc5]">
-                Engineering solutions for safer, more efficient and more
-                reliable operations.
+              <p className="mt-6 max-w-[290px] text-[13px] leading-7 text-[#b8cdc5]">
+                Engineering, technical and project solutions designed
+                to help organizations operate with greater reliability,
+                efficiency and confidence.
               </p>
             </motion.div>
 
-            {/* QUICK LINKS */}
+            {/* Website navigation */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <p className="mb-5 text-[10px] font-semibold tracking-[0.18em] text-[#9fc5b7]">
-                QUICK LINKS
-              </p>
+              <h3 className="mb-5 text-[10px] font-semibold tracking-[0.2em] text-[#79c9ad]">
+                NAVIGATION
+              </h3>
 
-              <div className="flex flex-col gap-3">
-
-                <a
-                  href="/"
-                  className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
-                >
-                  Home
-                </a>
-
-                <a
-                  href="/#about"
-                  className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
-                >
-                  About Us
-                </a>
-
-                <a
-                  href="/#services"
-                  className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
-                >
-                  Services
-                </a>
-
-                <a
-                  href="/markets"
-                  className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
-                >
-                  Markets
-                </a>
-
-                <a
-                  href="/careers"
-                  className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
-                >
-                  Careers
-                </a>
-
-                <a
-  href="/#contact-project"
-  onClick={() => {
-    if (window.location.pathname === "/") {
-      setTimeout(() => {
-        document.getElementById("contact")?.scrollIntoView({
-          behavior: "smooth",
-        });
-      }, 100);
-    }
-  }}
-  className="w-fit text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
->
-  Get in Touch
-</a>
-
+              <div className="flex flex-col items-start gap-2.5">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={footerLinkClass}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
               </div>
             </motion.div>
 
-            {/* SERVICES */}
+            {/* All services */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <p className="mb-5 text-[10px] font-semibold tracking-[0.18em] text-[#9fc5b7]">
-                SERVICES
-              </p>
+              <h3 className="mb-5 text-[10px] font-semibold tracking-[0.2em] text-[#79c9ad]">
+                OUR SERVICES
+              </h3>
 
-              <div className="grid grid-cols-1 gap-3">
-
+              <div className="flex flex-col items-start gap-2.5">
                 {services.map((service) => (
-                  <a
-                    key={service}
-                    href="/#services"
-                    className="w-fit text-[12px] leading-5 text-[#b8cdc5] transition-colors hover:text-white"
+                  <Link
+                    key={service.name}
+                    to={service.href}
+                    className={footerLinkClass}
                   >
-                    {service}
-                  </a>
+                    {service.name}
+                  </Link>
                 ))}
-
               </div>
             </motion.div>
 
-            {/* CONTACT */}
+            {/* Contact */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <p className="mb-5 text-[10px] font-semibold tracking-[0.18em] text-[#9fc5b7]">
+              <h3 className="mb-5 text-[10px] font-semibold tracking-[0.2em] text-[#79c9ad]">
                 CONTACT
-              </p>
+              </h3>
 
-              <div className="space-y-5">
-
+              <div className="space-y-6">
                 <div>
-                  <p className="text-[9px] font-semibold tracking-[0.12em] text-[#719d8e]">
+                  <p className="mb-2 text-[10px] font-medium tracking-[0.12em] text-[#719d8e]">
                     CUSTOMER SUPPORT
                   </p>
 
                   <a
                     href="mailto:support@archridge.info"
-                    className="mt-1.5 block text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
+                    className="break-words text-[13px] text-[#d2e2dc] transition-colors hover:text-white"
                   >
                     support@archridge.info
                   </a>
                 </div>
 
                 <div>
-                  <p className="text-[9px] font-semibold tracking-[0.12em] text-[#719d8e]">
+                  <p className="mb-2 text-[10px] font-medium tracking-[0.12em] text-[#719d8e]">
                     LOCATION
                   </p>
 
-                  <p className="mt-1.5 text-[13px] text-[#d2e2dc]">
+                  <p className="text-[13px] text-[#d2e2dc]">
                     Houston, TX
                   </p>
                 </div>
 
+                <Link
+                  to="/#contact"
+                  className="group inline-flex items-center gap-2 text-[13px] font-semibold text-[#79c9ad] transition-colors hover:text-white"
+                >
+                  Get in Touch
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
               </div>
             </motion.div>
-
           </div>
         </div>
       </div>
 
-      {/* BOTTOM BAR */}
-      <div className="border-t border-[#245047] px-5 sm:px-8 lg:px-12 xl:px-16">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
-
-          <p className="text-[11px] text-[#719d8e]">
-            © 2026 ARCHRIDGE Dynamics. All rights reserved.
+      {/* Bottom bar */}
+      <div className="relative border-t border-[#315950] px-5 sm:px-8 lg:px-12 xl:px-16">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[11px] text-[#91afa3]">
+            © {new Date().getFullYear()} Archridge Dynamics. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-5">
-
-            <a
-              href="#"
-              className="text-[11px] text-[#719d8e] transition-colors hover:text-white"
-            >
-              Privacy Policy
-            </a>
-
-            <span className="h-3 w-px bg-[#315950]" />
-
-            <a
-              href="#"
-              className="text-[11px] text-[#719d8e] transition-colors hover:text-white"
-            >
-              Terms of Service
-            </a>
-
-          </div>
-
+          <p className="text-[11px] text-[#719d8e]">
+            Engineering excellence. Reliable delivery.
+          </p>
         </div>
       </div>
-
     </footer>
   );
 }

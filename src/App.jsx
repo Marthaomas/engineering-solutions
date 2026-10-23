@@ -13,6 +13,9 @@ import Careers from "./components/Careers";
 import CareersPage from "./components/CareersPage";
 import CareersOpportunities from "./components/CareersOpportunities";
 import AboutPage from "./components/AboutPage";
+import ProjectServices from "./components/ProjectServices";
+import EngineeringSolutions from "./components/EngineeringSolutions";
+import ServicePage from "./components/ServicePage";
 function Home() {
   return (
     <>
@@ -46,6 +49,20 @@ function App() {
               element={<CareersOpportunities />}
             />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/project-services" element={<ProjectServices />} />
+            <Route path="/project-services/:service" element={<ProjectServices />} />
+<Route
+  path="/engineering-solutions"
+  element={<EngineeringSolutions />}
+/>
+<Route
+  path="/engineering-solutions/:service"
+  element={<EngineeringSolutions />}
+/> {/* OTHER SERVICE PAGES - ONE REUSABLE COMPONENT */}
+            <Route
+              path="/services/:service"
+              element={<ServicePage />}
+            />
           </Routes>
         </main>
 

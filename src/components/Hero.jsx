@@ -26,15 +26,16 @@ export default function Hero() {
               ENGINEERED WITH PRECISION, DELIVERED WITH EXCELLENCE.
             </p>
 
-            {/* HEADING */}
-            <h1 className="font-serif text-[58px] leading-[0.98] tracking-[-0.035em] text-[#102f28] xl:text-[70px]">
-              Engineering Solutions
-              <br />
-              for a{" "}
-              <span className="text-[#16745a]">
-                Stronger Future
-              </span>
-            </h1>
+            
+{/* HEADING */}
+<h1 className="font-serif text-[58px] leading-[0.98] tracking-[-0.035em] text-[#102f28] xl:text-[70px]">
+  Built on Expertise.
+  <br />
+  <span className="text-[#16745a]">
+    Driven by Results.
+  </span>
+</h1>
+
 
             {/* DESCRIPTION */}
             <p className="mt-7 max-w-[560px] text-[16px] font-medium leading-7 text-[#53665f] xl:text-[17px]">
@@ -126,15 +127,16 @@ export default function Hero() {
               ENGINEERED WITH PRECISION, DELIVERED WITH EXCELLENCE.
             </p>
 
-            {/* HEADING */}
-            <h1 className="font-serif text-[47px] leading-[0.98] tracking-[-0.035em] text-[#102f28] sm:text-[58px]">
-              Engineering Solutions
-              <br />
-              for a{" "}
-              <span className="text-[#16745a]">
-                Stronger Future
-              </span>
-            </h1>
+            
+{/* HEADING */}
+<h1 className="font-serif text-[58px] leading-[0.98] tracking-[-0.035em] text-[#102f28] xl:text-[70px]">
+  Built on Expertise.
+  <br />
+  <span className="text-[#16745a]">
+    Driven by Results.
+  </span>
+</h1>
+
 
             {/* DESCRIPTION */}
             <p className="mt-6 max-w-[580px] text-[16px] font-medium leading-7 text-[#53665f] sm:text-[17px]">

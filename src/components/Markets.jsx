@@ -168,38 +168,44 @@ export default function Markets() {
     <main className="w-full bg-[#f5f5ef]">
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#062d24] px-5 pb-24 pt-28 sm:px-8 sm:pt-32 lg:px-12 lg:pb-32 lg:pt-40 xl:px-16">
-        <div className="pointer-events-none absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-[#0d5c48]/30 blur-3xl" />
+      
+{/* HERO */}
+<section className="relative overflow-hidden bg-[#062d24] px-5 py-24 sm:px-8 lg:px-12 xl:px-16 lg:py-32">
+  {/* Top-right circle — matches About page */}
+  <div className="absolute right-[-120px] top-[-120px] h-[360px] w-[360px] rounded-full border border-[#79c9ad]/20" />
 
-        <div className="relative z-10 mx-auto max-w-[1400px]">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-[950px]"
-          >
-            <p className="mb-5 text-[12px] font-semibold uppercase tracking-[0.22em] text-[#79c9ad]">
-              Markets We Serve
-            </p>
+  {/* Bottom-left circle — matches About page */}
+  <div className="absolute bottom-[-180px] left-[-100px] h-[400px] w-[400px] rounded-full border border-[#79c9ad]/10" />
 
-            <h1 className="font-serif text-[48px] leading-[1.02] tracking-[-0.035em] text-[#f5f5ef] sm:text-[64px] lg:text-[78px]">
-              Engineering expertise
-              <br />
-              <span className="text-[#79c9ad]">
-                across critical industries.
-              </span>
-            </h1>
+  <div className="relative mx-auto max-w-[1400px]">
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      className="max-w-[850px]"
+    >
+      <p className="text-[11px] font-semibold tracking-[0.2em] text-[#79c9ad]">
+        MARKETS WE SERVE
+      </p>
 
-            <p className="mt-7 max-w-[760px] text-[16px] leading-7 text-[#b8cbc4] sm:text-[18px] sm:leading-8">
-              Our engineering capabilities are applied across industries
-              where technical reliability, effective project delivery and
-              sound decision-making are essential. We understand that every
-              market presents different requirements, challenges and
-              operating environments.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <h1 className="mt-5 max-w-[850px] font-serif text-[48px] leading-[1.02] tracking-[-0.035em] text-white sm:text-[62px] lg:text-[76px]">
+        Engineering expertise{" "}
+        <span className="text-[#79c9ad]">
+          across critical industries.
+        </span>
+      </h1>
+
+      <p className="mt-7 max-w-[700px] text-[15px] leading-7 text-[#d2e2dc] sm:text-[17px]">
+        Our engineering capabilities are applied across industries
+        where technical reliability, effective project delivery and
+        sound decision-making are essential. We understand that every
+        market presents different requirements, challenges and
+        operating environments.
+      </p>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* INTRODUCTION */}
       <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:px-16">
